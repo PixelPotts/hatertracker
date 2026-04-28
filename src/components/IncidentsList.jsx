@@ -3,7 +3,7 @@ import { Search, Plus, AlertTriangle, Clock, FileText, Eye } from 'lucide-react'
 import { haters, incidents, THREAT_LEVELS, MITIGATION_STATUS } from '../data/mockData';
 
 function SeverityBar({ value }) {
-  const color = value >= 8 ? '#ef4444' : value >= 6 ? '#f97316' : value >= 4 ? '#eab308' : '#22c55e';
+  const color = value >= 8 ? '#ff4d6a' : value >= 6 ? '#f97316' : value >= 4 ? '#ffb800' : '#00ff88';
   return (
     <div className="severity-bar">
       <div className="severity-track">
@@ -34,34 +34,34 @@ export default function IncidentsList() {
       <div className="page-header">
         <div className="page-header-row">
           <div>
-            <h2>Incidents</h2>
-            <p>Complete log of documented incidents and their current status</p>
+            <h2>drama log</h2>
+            <p>everything that's gone down, documented</p>
           </div>
           <button className="btn btn-primary">
-            <Plus size={14} />
-            Log Incident
+            <Plus size={13} />
+            log it
           </button>
         </div>
       </div>
 
-      <div style={{ display: 'flex', gap: 12, marginBottom: 24, flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', gap: 10, marginBottom: 22, flexWrap: 'wrap' }}>
         <div className="search-bar">
-          <Search size={16} />
+          <Search size={14} />
           <input
             type="text"
-            placeholder="Search incidents..."
+            placeholder="search incidents..."
             value={search}
             onChange={e => setSearch(e.target.value)}
           />
         </div>
-        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap' }}>
           {['ALL', ...Object.keys(MITIGATION_STATUS)].map(status => (
             <button
               key={status}
               className={`btn btn-sm ${statusFilter === status ? 'btn-primary' : 'btn-ghost'}`}
               onClick={() => setStatusFilter(status)}
             >
-              {status === 'ALL' ? 'All' : MITIGATION_STATUS[status]?.label || status}
+              {status === 'ALL' ? 'all' : MITIGATION_STATUS[status]?.label || status}
             </button>
           ))}
         </div>
@@ -71,8 +71,8 @@ export default function IncidentsList() {
         <div className="card-body no-pad">
           {filtered.length === 0 ? (
             <div className="empty-state">
-              <h4>No incidents match your filters</h4>
-              <p>Try adjusting your search or filter criteria</p>
+              <h4>nothing matches those filters</h4>
+              <p>try adjusting your search</p>
             </div>
           ) : (
             filtered.map(incident => {
@@ -82,7 +82,7 @@ export default function IncidentsList() {
                 <div key={incident.id} className="incident-item">
                   <div className="incident-header">
                     <div className="incident-type">
-                      <AlertTriangle size={14} style={{ color: incident.severity >= 8 ? '#ef4444' : incident.severity >= 6 ? '#f97316' : '#eab308' }} />
+                      <AlertTriangle size={13} style={{ color: incident.severity >= 8 ? '#ff4d6a' : incident.severity >= 6 ? '#f97316' : '#ffb800' }} />
                       {incident.type}
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
@@ -106,13 +106,13 @@ export default function IncidentsList() {
                     {incident.evidence.length > 0 && (
                       <span className="incident-meta">
                         <FileText size={10} />
-                        {incident.evidence.length} evidence
+                        {incident.evidence.length} receipt{incident.evidence.length > 1 ? 's' : ''}
                       </span>
                     )}
                     {incident.witnesses.length > 0 && (
                       <span className="incident-meta">
                         <Eye size={10} />
-                        {incident.witnesses.length} witness{incident.witnesses.length > 1 ? 'es' : ''}
+                        {incident.witnesses.length} saw it
                       </span>
                     )}
                   </div>

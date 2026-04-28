@@ -12,7 +12,7 @@ function ThreatBadge({ level }) {
 }
 
 function SeverityBar({ value }) {
-  const color = value >= 8 ? '#ef4444' : value >= 6 ? '#f97316' : value >= 4 ? '#eab308' : '#22c55e';
+  const color = value >= 8 ? '#ff4d6a' : value >= 6 ? '#f97316' : value >= 4 ? '#ffb800' : '#00ff88';
   return (
     <div className="severity-bar">
       <div className="severity-track">
@@ -38,8 +38,8 @@ export default function SubjectDetail({ haterId, setActiveView }) {
   return (
     <div className="animate-in">
       <button className="back-btn" onClick={() => setActiveView('subjects')}>
-        <ArrowLeft size={14} />
-        Back to Subjects
+        <ArrowLeft size={13} />
+        back to watchlist
       </button>
 
       <div className="detail-panel">
@@ -64,34 +64,34 @@ export default function SubjectDetail({ haterId, setActiveView }) {
         <div className="detail-body">
           <div className="detail-grid">
             <div className="detail-field">
-              <label>First Encounter</label>
+              <label>first encounter</label>
               <p>{new Date(hater.firstEncounter).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
             </div>
             <div className="detail-field">
-              <label>Active Incidents</label>
+              <label>active incidents</label>
               <p style={{ color: hater.activeIncidents > 3 ? 'var(--danger)' : 'inherit' }}>
                 {hater.activeIncidents}
               </p>
             </div>
             <div className="detail-field">
-              <label>Resolved</label>
+              <label>handled</label>
               <p style={{ color: 'var(--success)' }}>{hater.resolvedIncidents}</p>
             </div>
           </div>
 
           <div className="detail-field" style={{ marginBottom: 16 }}>
-            <label>Assessment Notes</label>
+            <label>notes</label>
             <p>{hater.notes}</p>
           </div>
 
           <div className="detail-field">
-            <label>Motivation Analysis</label>
+            <label>what's their deal</label>
             <p>{hater.motivationAnalysis}</p>
           </div>
 
           <div style={{ marginTop: 16 }}>
-            <label style={{ display: 'block', fontSize: 10, textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--text-muted)', fontWeight: 600, marginBottom: 8 }}>
-              Tags
+            <label style={{ display: 'block', fontSize: 9, textTransform: 'lowercase', letterSpacing: '2px', color: 'var(--text-muted)', fontWeight: 600, marginBottom: 8 }}>
+              tags
             </label>
             <div className="tags">
               {hater.tags.map(tag => <span key={tag} className="tag">{tag}</span>)}
@@ -100,8 +100,8 @@ export default function SubjectDetail({ haterId, setActiveView }) {
 
           <div className="detail-section">
             <h4>
-              <AlertTriangle size={13} style={{ display: 'inline', marginRight: 6 }} />
-              Incident Timeline ({haterIncidents.length})
+              <AlertTriangle size={12} style={{ display: 'inline', marginRight: 6 }} />
+              timeline ({haterIncidents.length})
             </h4>
             {haterIncidents.map(incident => {
               const status = MITIGATION_STATUS[incident.mitigationStatus];
@@ -129,19 +129,19 @@ export default function SubjectDetail({ haterId, setActiveView }) {
                     {incident.evidence.length > 0 && (
                       <span className="incident-meta">
                         <FileText size={10} />
-                        {incident.evidence.length} evidence
+                        {incident.evidence.length} receipt{incident.evidence.length > 1 ? 's' : ''}
                       </span>
                     )}
                     {incident.witnesses.length > 0 && (
                       <span className="incident-meta">
                         <Eye size={10} />
-                        {incident.witnesses.length} witness{incident.witnesses.length > 1 ? 'es' : ''}
+                        {incident.witnesses.length} saw it
                       </span>
                     )}
                   </div>
                   {incident.mitigationNotes && (
                     <div className="info-box" style={{ marginTop: 10, marginBottom: 0 }}>
-                      <strong style={{ fontSize: 11, color: 'var(--text-muted)' }}>Mitigation Notes:</strong>{' '}
+                      <strong style={{ fontSize: 10, color: 'var(--text-muted)' }}>game plan:</strong>{' '}
                       {incident.mitigationNotes}
                     </div>
                   )}
@@ -152,8 +152,8 @@ export default function SubjectDetail({ haterId, setActiveView }) {
 
           <div className="detail-section">
             <h4>
-              <Shield size={13} style={{ display: 'inline', marginRight: 6 }} />
-              Recommended Strategies
+              <Shield size={12} style={{ display: 'inline', marginRight: 6 }} />
+              recommended moves
             </h4>
             <div className="grid-2" style={{ marginBottom: 0 }}>
               {recommendedStrategies.map(strat => (

@@ -34,34 +34,34 @@ export default function SubjectsList({ setActiveView, setSelectedHater }) {
       <div className="page-header">
         <div className="page-header-row">
           <div>
-            <h2>Subjects</h2>
-            <p>Tracked individuals and their threat assessments</p>
+            <h2>watchlist</h2>
+            <p>everyone who's been acting up</p>
           </div>
           <button className="btn btn-primary">
-            <Plus size={14} />
-            Add Subject
+            <Plus size={13} />
+            add to list
           </button>
         </div>
       </div>
 
-      <div style={{ display: 'flex', gap: 12, marginBottom: 24 }}>
+      <div style={{ display: 'flex', gap: 10, marginBottom: 22 }}>
         <div className="search-bar">
-          <Search size={16} />
+          <Search size={14} />
           <input
             type="text"
-            placeholder="Search subjects, tags..."
+            placeholder="search people, tags..."
             value={search}
             onChange={e => setSearch(e.target.value)}
           />
         </div>
-        <div style={{ display: 'flex', gap: 6 }}>
+        <div style={{ display: 'flex', gap: 5 }}>
           {['ALL', 'CRITICAL', 'SEVERE', 'HIGH', 'MODERATE', 'LOW'].map(level => (
             <button
               key={level}
               className={`btn btn-sm ${filterLevel === level ? 'btn-primary' : 'btn-ghost'}`}
               onClick={() => setFilterLevel(level)}
             >
-              {level === 'ALL' ? 'All' : THREAT_LEVELS[level]?.label || level}
+              {level === 'ALL' ? 'all' : THREAT_LEVELS[level]?.label || level}
             </button>
           ))}
         </div>
@@ -71,7 +71,6 @@ export default function SubjectsList({ setActiveView, setSelectedHater }) {
         <div className="card-body no-pad">
           {sorted.map(hater => {
             const haterIncidents = incidents.filter(i => i.haterId === hater.id);
-            const latestIncident = haterIncidents.sort((a, b) => new Date(b.date) - new Date(a.date))[0];
             return (
               <div
                 key={hater.id}
@@ -90,7 +89,7 @@ export default function SubjectsList({ setActiveView, setSelectedHater }) {
                     <span className="hater-alias">"{hater.alias}"</span>
                   </div>
                   <div className="hater-meta">
-                    {hater.relationship} · Since {new Date(hater.firstEncounter).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                    {hater.relationship} · since {new Date(hater.firstEncounter).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
                   </div>
                 </div>
                 <div className="tags" style={{ maxWidth: 200 }}>
@@ -103,13 +102,13 @@ export default function SubjectsList({ setActiveView, setSelectedHater }) {
                     <div className="hater-stat-value" style={{ color: hater.activeIncidents > 3 ? 'var(--danger)' : 'var(--text-primary)' }}>
                       {hater.activeIncidents}
                     </div>
-                    <div className="hater-stat-label">Active</div>
+                    <div className="hater-stat-label">active</div>
                   </div>
                   <div className="hater-stat">
                     <div className="hater-stat-value" style={{ color: 'var(--success)' }}>
                       {hater.resolvedIncidents}
                     </div>
-                    <div className="hater-stat-label">Resolved</div>
+                    <div className="hater-stat-label">handled</div>
                   </div>
                 </div>
                 <ThreatBadge level={hater.threatLevel} />

@@ -13,7 +13,7 @@ function ThreatBadge({ level }) {
 }
 
 function SeverityBar({ value }) {
-  const color = value >= 8 ? '#ef4444' : value >= 6 ? '#f97316' : value >= 4 ? '#eab308' : '#22c55e';
+  const color = value >= 8 ? '#ff4d6a' : value >= 6 ? '#f97316' : value >= 4 ? '#ffb800' : '#00ff88';
   return (
     <div className="severity-bar">
       <div className="severity-track">
@@ -24,7 +24,7 @@ function SeverityBar({ value }) {
   );
 }
 
-const chartColors = ['#6366f1', '#818cf8', '#a78bfa', '#c4b5fd', '#ddd6fe', '#ede9fe'];
+const chartColors = ['#a855f7', '#c084fc', '#f472b6', '#fb7185', '#38bdf8', '#00ff88'];
 
 export default function Dashboard({ setActiveView, setSelectedHater }) {
   const activeIncidents = incidents.filter(i => i.mitigationStatus !== 'RESOLVED');
@@ -34,68 +34,68 @@ export default function Dashboard({ setActiveView, setSelectedHater }) {
   return (
     <div className="animate-in">
       <div className="page-header">
-        <h2>Situation Overview</h2>
-        <p>Real-time threat landscape and incident monitoring</p>
+        <h2>the rundown</h2>
+        <p>what's going on right now</p>
       </div>
 
       <div className="stats-grid">
         <div className="stat-card">
           <div className="stat-card-header">
-            <span>Active Subjects</span>
-            <Users size={16} />
+            <span>on the radar</span>
+            <Users size={15} />
           </div>
           <div className="stat-card-value">{haters.length}</div>
-          <div className="stat-card-sub warning">{criticalHaters.length} at elevated threat</div>
+          <div className="stat-card-sub warning">{criticalHaters.length} need attention</div>
         </div>
         <div className="stat-card">
           <div className="stat-card-header">
-            <span>Open Incidents</span>
-            <AlertTriangle size={16} />
+            <span>open drama</span>
+            <AlertTriangle size={15} />
           </div>
           <div className="stat-card-value">{activeIncidents.length}</div>
           <div className="stat-card-sub danger">+3 this week</div>
         </div>
         <div className="stat-card">
           <div className="stat-card-header">
-            <span>Avg Severity</span>
-            <TrendingUp size={16} />
+            <span>avg intensity</span>
+            <TrendingUp size={15} />
           </div>
           <div className="stat-card-value">
             {(incidents.reduce((a, i) => a + i.severity, 0) / incidents.length).toFixed(1)}
           </div>
-          <div className="stat-card-sub warning">Trending upward</div>
+          <div className="stat-card-sub warning">trending up</div>
         </div>
         <div className="stat-card">
           <div className="stat-card-header">
-            <span>Resolution Rate</span>
-            <ShieldAlert size={16} />
+            <span>handled</span>
+            <ShieldAlert size={15} />
           </div>
           <div className="stat-card-value">
             {Math.round(incidents.filter(i => i.mitigationStatus === 'RESOLVED').length / incidents.length * 100)}%
           </div>
-          <div className="stat-card-sub success">4 resolved this month</div>
+          <div className="stat-card-sub success">4 wrapped up this month</div>
         </div>
       </div>
 
       <div className="grid-2">
         <div className="card">
           <div className="card-header">
-            <h3>Incident Trend</h3>
+            <h3>incident trend</h3>
             <button className="btn-link" onClick={() => setActiveView('analytics')}>
-              Full Analytics <ArrowUpRight size={12} />
+              full stats <ArrowUpRight size={11} />
             </button>
           </div>
           <div className="card-body">
             <div className="chart-container">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={analyticsData.incidentsByMonth} margin={{ top: 5, right: 5, bottom: 5, left: -20 }}>
-                  <XAxis dataKey="month" tick={{ fill: '#5a5a72', fontSize: 11 }} axisLine={false} tickLine={false} />
-                  <YAxis tick={{ fill: '#5a5a72', fontSize: 11 }} axisLine={false} tickLine={false} />
+                  <XAxis dataKey="month" tick={{ fill: '#52526b', fontSize: 10, fontFamily: 'Space Grotesk' }} axisLine={false} tickLine={false} />
+                  <YAxis tick={{ fill: '#52526b', fontSize: 10 }} axisLine={false} tickLine={false} />
                   <Tooltip
-                    contentStyle={{ background: '#1e1e2a', border: '1px solid #2a2a3a', borderRadius: 8, fontSize: 12 }}
-                    labelStyle={{ color: '#e8e8f0' }}
+                    contentStyle={{ background: '#16161f', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 12, fontSize: 11, fontFamily: 'Space Grotesk' }}
+                    labelStyle={{ color: '#f0f0f5' }}
                   />
-                  <Bar dataKey="count" radius={[4, 4, 0, 0]}>
+                  <Bar dataKey="count" radius={[6, 6, 0, 0]}>
                     {analyticsData.incidentsByMonth.map((_, i) => (
                       <Cell key={i} fill={chartColors[i % chartColors.length]} />
                     ))}
@@ -108,9 +108,9 @@ export default function Dashboard({ setActiveView, setSelectedHater }) {
 
         <div className="card">
           <div className="card-header">
-            <h3>High Priority Subjects</h3>
+            <h3>main characters</h3>
             <button className="btn-link" onClick={() => setActiveView('subjects')}>
-              See All <ArrowUpRight size={12} />
+              see all <ArrowUpRight size={11} />
             </button>
           </div>
           <div className="card-body no-pad">
@@ -142,9 +142,9 @@ export default function Dashboard({ setActiveView, setSelectedHater }) {
 
       <div className="card">
         <div className="card-header">
-          <h3>Recent Incidents</h3>
+          <h3>latest drama</h3>
           <button className="btn-link" onClick={() => setActiveView('incidents')}>
-            See All <ArrowUpRight size={12} />
+            see all <ArrowUpRight size={11} />
           </button>
         </div>
         <div className="card-body no-pad">
@@ -155,9 +155,9 @@ export default function Dashboard({ setActiveView, setSelectedHater }) {
               <div key={incident.id} className="incident-item">
                 <div className="incident-header">
                   <div className="incident-type">
-                    <AlertTriangle size={14} style={{ color: incident.severity >= 8 ? '#ef4444' : '#eab308' }} />
+                    <AlertTriangle size={13} style={{ color: incident.severity >= 8 ? '#ff4d6a' : '#ffb800' }} />
                     {incident.type}
-                    <span style={{ fontWeight: 400, color: 'var(--text-muted)', fontSize: 12 }}>
+                    <span style={{ fontWeight: 400, color: 'var(--text-muted)', fontSize: 11 }}>
                       — {hater?.name}
                     </span>
                   </div>
@@ -178,7 +178,7 @@ export default function Dashboard({ setActiveView, setSelectedHater }) {
                   </span>
                   {incident.evidence.length > 0 && (
                     <span className="incident-meta">
-                      {incident.evidence.length} evidence item{incident.evidence.length > 1 ? 's' : ''}
+                      {incident.evidence.length} receipt{incident.evidence.length > 1 ? 's' : ''}
                     </span>
                   )}
                 </div>
